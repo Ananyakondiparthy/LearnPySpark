@@ -1,0 +1,13 @@
+#Reversing an array
+from array import *
+array_num = array('i', [2,3,4,5,6])
+print(array_num)
+array_num.reverse() #reverse the array
+print(array_num.count(1)) #count the number of occurances in an array
+print(array_num)
+#Get the length in bytes of one array item in the internal representation
+
+#Strings in python
+#strings in python can be concatinated with +
+
+
