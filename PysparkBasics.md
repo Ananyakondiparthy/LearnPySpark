@@ -1,13 +1,13 @@
-## PySpark tutorial
+>> PySpark tutorial
 Spark Session
 This is a Pyspark.sql package acts as an entry point to start spark. This is a class from where you can access the instance 
 of Spark context. The Spark session is used to create DataFrame, register Dataframe as a table, execute SQL commands over it. 
 Cache tables and read parquet files
 
-##Spark Context
+ > Spark Context
 It is the class of PySpark Package. It represents the connection to a spark cluster and cluster manager. All spark processes are indenpendent
 processes coordinated by Spark Context in the driver programs
-> It is used to create RDD and Broadcast variables on that cluster
+ It is used to create RDD and Broadcast variables on that cluster
 
 The Application Driver has Spark Session and Spark context 
 
@@ -27,7 +27,7 @@ RDD[String] - Each element is a string
 RDD[Integer] - Each element is an integer
 RDD[(string, Integer)] - Each element is a pair of (String, Integer)
 
-Spark Operations
+> Spark Operations
 1) Transformations - converts source RDD into target RDD
 2) Actions - Transforms the Source RDD into non-RDD object
 
@@ -38,7 +38,7 @@ rdd.collect()
 rdd.count()
 
 
-#Steps in Executing Pyshell Spark
+> Steps in Executing Pyshell Spark
 
 1) Enter into Pyspark shell
 2) Create RDD from collections
