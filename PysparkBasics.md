@@ -50,6 +50,21 @@ rdd.count()
 sum = rdd.reduceBykEY(Lambda x,y: x+y)
 ReduceByKey() transformation is used to merge and aggregate and aggregate values
 
+4) Filter RDD's Element
+Sumfiltered = sum.filter(lambda(k,v): v>9)
+sumfiltered.collect()
+
+5) Group similar keys
+grouped = rdd.groupByKey()
+grouped.collect()
+grouped.map(lamdba (k,v) : (k, list(v))).collect())
+
+6) Aggregate values for similar keys 
+aggregated = grouped.mapValues(lambda values :sum(values))
+aggregated.collect()
+ReducebyKey()
+GroupBykey()
+
 Refer the below link for pyspark documentation
 > https://spark.apache.org/docs/latest/api/python/index.html
 
