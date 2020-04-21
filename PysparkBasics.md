@@ -38,6 +38,17 @@ rdd.collect()
 rdd.count()
 
 
+#Steps in Executing Pyshell Spark
+
+1) Enter into Pyspark shell
+2) Create RDD from collections
+rdd = sc.parallelize(data)
+rdd.collect()
+rdd.count()
+
+3) Aggregate and Merge values of keys 
+sum = rdd.reduceBykEY(Lambda x,y: x+y)
+ReduceByKey() transformation is used to merge and aggregate and aggregate values
 
 Refer the below link for pyspark documentation
 > https://spark.apache.org/docs/latest/api/python/index.html
