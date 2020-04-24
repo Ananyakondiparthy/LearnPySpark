@@ -1,8 +1,4 @@
 
-
-#Quiz2
-
-#This code is submitted by Sri Ananya Kondiparthy
 #The code is designed to be  generic as possible  and handle any size input
 #The code is efficient and handles Big volumes of data
 #compliant with the two rules mentioned
