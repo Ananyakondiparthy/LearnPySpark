@@ -69,6 +69,25 @@ Refer the below link for pyspark documentation
 > https://spark.apache.org/docs/latest/api/python/index.html
 
 
+RDD[(string, Integer)] - RDD can be any datatype. The keys can be of any data type like string, integer.The key or value can be tuple.
+The key is string and value is the tuple of elements in the example ("Ananya", (10,20))
+Grouing on the keys.
+
+Maps - The source RDD has n elements. if we apply function f on each and every element of the source RDD
+rdd = 
+rdd2 =rdd. map(lambda x : 3*x)
+
+Def mult3():
+return 3*x
+end def
+rdd 3 = rdd.map(mult3)
+flatmap - takes list of elements and flattens all the elements
+flatMap, Map are transformations
+reduceby and groupby acts on keys
+mapvalues- similar to mapper but only works on values 
+reducebykey is very efficient as it uses combiner. The most efficient transformation.
+groupbykey - should be used cautiously
+for median then use groupbykey
 
 
 
