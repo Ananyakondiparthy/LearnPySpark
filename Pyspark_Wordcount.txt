@@ -1,0 +1,101 @@
+
+
+#Quiz2
+
+#This code is submitted by Sri Ananya Kondiparthy
+#The code is designed to be  generic as possible  and handle any size input
+#The code is efficient and handles Big volumes of data
+#compliant with the two rules mentioned
+
+
+
+Welcome to
+      ____              __
+     / __/__  ___ _____/ /__
+    _\ \/ _ \/ _ `/ __/  '_/
+   /__ / .__/\_,_/_/ /_/\_\   version 2.4.5
+      /_/
+
+Using Python version 3.7.6 (default, Jan  8 2020 13:42:34)
+SparkSession available as 'spark'.
+
+#The sample input is saved in the local copy called foxy1 and saved in the variable called input_path
+
+>>> input_path = '/Users/ananyakondiparthy/Documents/Ananya/Ananya_MSIS_Total/Big_Data/foxy1.txt'
+>>> records1 = spark.sparkContext.textFile(input_path)
+>>> records1.count()
+6                                                                               
+>>> records1.collect()
+['a Fox jumped high and high and jumped and jumped', 'fox of red jumped', 'fox of blue jumped', 'a Fox is a red fox of hen ', 'a fox is a high fox', 'orange fox is high and blue and blue']
+
+
+#Converting all the words into lowercase and flatting it to words
+
+>>> words = records1.flatMap(lambda line: line.lower().split(" "))
+>>> words.count()
+41
+>>> words.collect()
+['a', 'fox', 'jumped', 'high', 'and', 'high', 'and', 'jumped', 'and', 'jumped', 'fox', 'of', 'red', 'jumped', 'fox', 'of', 'blue', 'jumped', 'a', 'fox', 'is', 'a', 'red', 'fox', 'of', 'hen', '', 'a', 'fox', 'is', 'a', 'high', 'fox', 'orange', 'fox', 'is', 'high', 'and', 'blue', 'and', 'blue']
+
+#Rule1 -if a word's length is smaller than 3, that word will not appear in output. So, Filtering out the data less than length 3
+>>> wrd_len = words.filter(lambda word : len(word) >= 3)
+>>> wrd_len.count()
+29
+>>> wrd_len.collect()
+['fox', 'jumped', 'high', 'and', 'high', 'and', 'jumped', 'and', 'jumped', 'fox', 'red', 'jumped', 'fox', 'blue', 'jumped', 'fox', 'red', 'fox', 'hen', 'fox', 'high', 'fox', 'orange', 'fox', 'high', 'and', 'blue', 'and', 'blue']
+
+#Mapping the data
+>>> wrd_map = wrd_len.map(lambda word: (word, 1))
+>>> wrd_map.count()
+29
+
+#Efficiency of the code is maintained by using ReducebyKey
+>>> words_k = wrd_map.reduceByKey(lambda a,b: a+b)
+>>> words_k.count()
+8
+>>> words_k.collect()
+[('high', 4), ('hen', 1), ('orange', 1), ('fox', 8), ('jumped', 5), ('and', 5), ('red', 2), ('blue', 3)]
+
+# Rule 2- if a frequency of a unique-word is less than 3,  that word will not appear in output
+#This can be filtering only the words with frequency more than 3
+>>> words_final1=words_k.filter(lambda kv: kv[1] >= 3)
+>>> words_final1.count()
+5
+>>> words_final1.collect()
+[('high', 4), ('fox', 8), ('jumped', 5), ('and', 5), ('blue', 3)]
+>>> print("words_final1.count(): ", words_final1.count())
+words_final1.count():  5
+
+#The required output
+>>> print(words_final1)
+[('high', 4), ('fox', 8), ('jumped', 5), ('and', 5), ('blue', 3)]
+>>> for x in words_final1.collect():
+...     print(x)
+... 
+
+('high', 4)
+('fox', 8)
+('jumped', 5)
+('and', 5)
+('blue', 3)
+
+#--------------------------------------------------------
+# Condensed program
+
+input_path = '/Users/ananyakondiparthy/Documents/Ananya/Ananya_MSIS_Total/Big_Data/foxy1.txt'
+records1 = spark.sparkContext.textFile(input_path)
+words = records1.flatMap(lambda line: line.lower().split(" "))
+wrd_len = words.filter(lambda word : len(word) >= 3)
+wrd_map = wrd_len.map(lambda word: (word, 1))
+words_k = wrd_map.reduceByKey(lambda a,b: a+b)
+words_final1=words_k.filter(lambda kv: kv[1] >= 3)
+for x in words_final1.collect():
+...     print(x)
+
+
+#Output
+('high', 4)
+('fox', 8)
+('jumped', 5)
+('and', 5)
+('blue', 3)
